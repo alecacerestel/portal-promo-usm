@@ -1,0 +1,50 @@
+# Desarrollo diario:   pnpm db:up && pnpm dev   (solo Postgres en Docker, apps con hot reload)
+# Todo en Docker:      docker compose --profile app up --build
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-promo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-promo_dev}
+      POSTGRES_DB: ${POSTGRES_DB:-portal_promo}
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-promo} -d ${POSTGRES_DB:-portal_promo}']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    profiles: [app]
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-promo}:${POSTGRES_PASSWORD:-promo_dev}@postgres:5432/${POSTGRES_DB:-portal_promo}
+      API_PORT: 4000
+      WEB_URL: http://localhost:3000
+    ports:
+      - '4000:4000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    profiles: [app]
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:4000
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
+
+volumes:
+  postgres-data:

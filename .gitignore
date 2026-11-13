@@ -1,0 +1,31 @@
+# dependencias
+node_modules/
+
+# builds
+dist/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# turbo
+.turbo/
+
+# entorno: NUNCA subir credenciales
+.env
+.env.*
+!.env.example
+
+# datos reales / respaldos: NUNCA subir
+*.sql
+!apps/api/prisma/migrations/**/*.sql
+*.dump
+*.xlsx
+backups/
+
+# logs y sistema
+*.log
+coverage/
+.DS_Store
+.vscode/*
+!.vscode/extensions.json

@@ -1,0 +1,46 @@
+// Esquema de la base de datos del Portal Staff Promoción USM.
+// Documentación: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Rol {
+  ADMIN
+  COORDINADOR
+  APOYO_EVENTO
+  STAFF
+  POSTULANTE
+}
+
+enum EstadoStaff {
+  ACTIVO
+  CONGELADO
+  INTERCAMBIO
+  GRADUADO
+}
+
+model Usuario {
+  id                  String      @id @default(uuid())
+  /// nombre.apellido, generado por el admin al crear la cuenta
+  username            String      @unique
+  rut                 String      @unique
+  dv                  String      @db.Char(1)
+  nombres             String
+  apellidoPaterno     String
+  apellidoMaterno     String?
+  email               String?     @unique
+  passwordHash        String
+  /// true mientras tenga la clave temporal: se obliga a cambiarla al entrar
+  debeCambiarPassword Boolean     @default(true)
+  rol                 Rol         @default(STAFF)
+  estado              EstadoStaff @default(ACTIVO)
+  fechaNacimiento     DateTime?   @db.Date
+  creadoEn            DateTime    @default(now())
+  actualizadoEn       DateTime    @updatedAt
+}

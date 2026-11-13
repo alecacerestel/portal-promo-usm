@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+/*
+ * Colores USM tomados del CSS de usm.cl (nov 2026).
+ * TODO: confirmar con el manual de marca oficial.
+ */
+:root {
+  --usm-azul: #074469;
+  --usm-azul-medio: #005d96;
+  --usm-celeste: #e8f6ff;
+  --usm-amarillo: #fcb100;
+
+  --background: #ffffff;
+  --foreground: #0b1b26;
+}
+
+@theme inline {
+  --color-usm-azul: var(--usm-azul);
+  --color-usm-azul-medio: var(--usm-azul-medio);
+  --color-usm-celeste: var(--usm-celeste);
+  --color-usm-amarillo: var(--usm-amarillo);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #04121c;
+    --foreground: #e8f6ff;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
