@@ -42,19 +42,24 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 ## Fase 1 — Paridad: replicar TODO lo que existe hoy
 
 ### Autenticación y roles
-- [ ] Login con usuario `nombre.apellido` + contraseña
-- [ ] Admin crea usuarios a partir de RUT + nombre (usuario generado automático)
-- [ ] Contraseña inicial temporal + **cambio obligatorio en el primer login**
+- [x] Login con usuario `nombre.apellido` o RUT + contraseña
+- [x] Admin/coordinador crea usuarios a partir de RUT + nombre (usuario generado automático)
+- [x] Nombres repetidos: `juan.perez` → `juan.perez.g` → `juan.perez2`…
+- [x] Contraseña inicial temporal + **cambio obligatorio en el primer login**
       (el esquema actual "6 dígitos del RUT" es adivinable; se mantiene solo como clave temporal)
-- [ ] Hash de contraseñas con argon2, sesiones seguras, recuperar contraseña por correo
-- [ ] Cambiar contraseña
-- [ ] Roles (RBAC):
-  - [ ] **Admin** — todo
-  - [ ] **Coordinador** — gestiona staff/eventos (¿por sede? ❓)
+- [x] Hash de contraseñas (scrypt), sesión en cookie httpOnly, límite de intentos de login
+- [x] Cambiar contraseña
+- [ ] Recuperar contraseña por correo
+- [ ] Admin puede resetear la clave de alguien (vuelve a la temporal)
+- [ ] Editar / desactivar usuarios, cambiar rol y estado
+- [ ] Leer la sesión en el servidor con `use cache: private` para navegación instantánea
+- [~] Roles (RBAC):
+  - [x] **Admin** — todo
+  - [x] **Coordinador** — crea apoyo de evento, staff y postulantes (¿por sede? ❓)
   - [ ] **Apoyo de evento** — permisos temporales solo para un evento (Puertas Abiertas, Día Cero…)
   - [ ] **Staff (promo)** — sus datos, calendario, material, rendiciones
   - [ ] **Postulante** — (flujo de reclutamiento queda para después, ver Fase 3)
-- [ ] Estado del staff: activo · congelado · en intercambio · graduado
+- [~] Estado del staff: activo · congelado · en intercambio · graduado (en BD, falta pantalla)
 
 ### Notificaciones (inicio)
 - [ ] Listado de notificaciones del usuario ❓ (contenido real no visible con cuenta postulante)

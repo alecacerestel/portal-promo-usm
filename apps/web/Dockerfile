@@ -3,8 +3,9 @@ FROM node:26-alpine
 RUN npm i -g pnpm@10.34.9
 WORKDIR /repo
 
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+# Next fija los rewrites (/api/* → API) al compilar, por eso la URL va como build arg
+ARG API_URL
+ENV API_URL=$API_URL
 ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY . .

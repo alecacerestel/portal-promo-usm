@@ -40,10 +40,20 @@ cp .env.example .env        # variables de entorno locales
 pnpm install
 pnpm db:up                  # Postgres en Docker
 pnpm --filter @portal/api db:migrate
+pnpm --filter @portal/api db:seed    # crea el primer admin
 pnpm dev                    # web + api con recarga automática
 ```
 
-Abre http://localhost:3000. El indicador de la portada confirma que la API y la base de datos responden.
+Abre http://localhost:3000 y entra con usuario `admin.promo` y clave temporal `111111`
+(datos ficticios de desarrollo). Te pedirá cambiarla en el primer ingreso.
+
+### Cuentas de usuario
+
+- El admin (o un coordinador) crea la cuenta con RUT y nombre desde **Usuarios**.
+- El usuario se genera como `nombre.apellido`. Si ya existe, se prueba `nombre.apellido.<inicial 2º apellido>`
+  y luego `nombre.apellido2`, `nombre.apellido3`…
+- La clave temporal son los 6 dígitos antes del verificador del RUT. Se debe cambiar en el primer ingreso.
+- Se puede entrar con el usuario o con el RUT.
 
 Para levantar todo dentro de Docker (sin Node local):
 
