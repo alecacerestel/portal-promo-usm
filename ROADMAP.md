@@ -13,20 +13,20 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 - [ ] Repo público en GitHub, licencia (MIT), README con aviso "proyecto no oficial"
 - [ ] Ramas: `main` (estable) · `develop` (integración) · `feature/*` · `fix/*` · `chore/*`
 - [ ] Protección de ramas: PR obligatorio a `main`/`develop`, CI en verde para mergear
-- [ ] Conventional Commits (`feat:`, `fix:`, `chore:`…) + commitlint + husky
-- [ ] Templates de Issue y Pull Request, `CONTRIBUTING.md` (para cuando se sume más gente)
+- [x] Conventional Commits (`feat:`, `fix:`, `chore:`…) + commitlint + husky
+- [~] Templates de Issue y Pull Request (listos), `CONTRIBUTING.md` (para cuando se sume más gente)
 - [ ] GitHub Projects (tablero Kanban) con las tareas de este roadmap como Issues
-- [ ] `.env.example` — **nunca** subir credenciales, datos reales ni dumps de BD
-- [ ] Datos de prueba ficticios (seed con nombres/RUT inventados)
+- [x] `.env.example` — **nunca** subir credenciales, datos reales ni dumps de BD
+- [~] Datos de prueba ficticios (seed con nombres/RUT inventados) — por ahora solo el admin
 
 ### Monorepo
-- [ ] pnpm workspaces + Turborepo
-- [ ] `apps/web` — Next.js + TypeScript + Tailwind + shadcn/ui
-- [ ] `apps/api` — NestJS + Prisma + PostgreSQL
-- [ ] `packages/shared` — tipos y validaciones Zod compartidas
+- [x] pnpm workspaces + Turborepo
+- [~] `apps/web` — Next.js + TypeScript + Tailwind + shadcn/ui (falta shadcn/ui)
+- [x] `apps/api` — NestJS + Prisma + PostgreSQL
+- [x] `packages/shared` — tipos y validaciones Zod compartidas
 - [ ] `packages/ui` — componentes y tokens de diseño USM
 - [ ] ESLint + Prettier + TypeScript estricto en todo el monorepo
-- [ ] Vitest (unit) + Playwright (e2e)
+- [~] Vitest (unit) + Playwright (e2e) (falta Playwright)
 
 ### Docker
 - [ ] `docker-compose.yml`: postgres, api, web, minio (archivos), mailpit (correos de prueba)
@@ -34,7 +34,7 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 - [ ] Hot reload en desarrollo
 
 ### CI (GitHub Actions)
-- [ ] Lint + typecheck + tests + build en cada PR
+- [x] Lint + typecheck + tests + build en cada PR
 - [ ] Build de imágenes Docker en `main`
 
 ---
@@ -50,8 +50,8 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 - [x] Hash de contraseñas (scrypt), sesión en cookie httpOnly, límite de intentos de login
 - [x] Cambiar contraseña
 - [ ] Recuperar contraseña por correo
-- [ ] Admin puede resetear la clave de alguien (vuelve a la temporal)
-- [ ] Editar / desactivar usuarios, cambiar rol y estado
+- [x] Admin puede resetear la clave de alguien (vuelve a la temporal)
+- [x] Editar / desactivar usuarios, cambiar rol y estado
 - [ ] Leer la sesión en el servidor con `use cache: private` para navegación instantánea
 - [~] Roles (RBAC):
   - [x] **Admin** — todo
@@ -59,7 +59,7 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
   - [ ] **Apoyo de evento** — permisos temporales solo para un evento (Puertas Abiertas, Día Cero…)
   - [ ] **Staff (promo)** — sus datos, calendario, material, rendiciones
   - [ ] **Postulante** — (flujo de reclutamiento queda para después, ver Fase 3)
-- [~] Estado del staff: activo · congelado · en intercambio · graduado (en BD, falta pantalla)
+- [x] Estado del staff: activo · congelado · en intercambio · graduado
 
 ### Notificaciones (inicio)
 - [ ] Listado de notificaciones del usuario ❓ (contenido real no visible con cuenta postulante)

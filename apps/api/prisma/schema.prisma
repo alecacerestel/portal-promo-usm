@@ -40,6 +40,8 @@ model Usuario {
   debeCambiarPassword Boolean     @default(true)
   rol                 Rol         @default(STAFF)
   estado              EstadoStaff @default(ACTIVO)
+  /// false = cuenta desactivada: no puede iniciar sesión (los datos se conservan)
+  activo              Boolean     @default(true)
   fechaNacimiento     DateTime?   @db.Date
   creadoEn            DateTime    @default(now())
   actualizadoEn       DateTime    @updatedAt

@@ -43,7 +43,7 @@ export class AuthGuard implements CanActivate {
     }
 
     const usuario = await this.prisma.usuario.findUnique({ where: { id: sub } });
-    if (!usuario) throw new UnauthorizedException('Sesión inválida');
+    if (!usuario || !usuario.activo) throw new UnauthorizedException('Sesión inválida');
     Object.assign(req, { usuario });
 
     if (usuario.debeCambiarPassword && !metadata<boolean>(PERMITE_CAMBIO_PENDIENTE)) {

@@ -5,34 +5,13 @@ import { z } from "zod";
 import {
   crearUsuarioSchema,
   formatearRut,
-  type EstadoStaff,
   type Rol,
   type UsuarioCreado,
 } from "@portal/shared";
-import { Alerta, Boton, Campo } from "@/components/ui";
+import { Alerta, Boton, Campo, Selector } from "@/components/ui";
 import { api } from "@/lib/api";
 import { useSesion } from "../../sesion";
-
-interface FilaUsuario {
-  id: string;
-  username: string;
-  rut: string;
-  dv: string;
-  nombres: string;
-  apellidoPaterno: string;
-  apellidoMaterno: string | null;
-  rol: Rol;
-  estado: EstadoStaff;
-  debeCambiarPassword: boolean;
-}
-
-const NOMBRE_ROL: Record<Rol, string> = {
-  ADMIN: "Admin",
-  COORDINADOR: "Coordinador/a",
-  APOYO_EVENTO: "Apoyo de evento",
-  STAFF: "Staff",
-  POSTULANTE: "Postulante",
-};
+import { EditarUsuario, NOMBRE_ESTADO, NOMBRE_ROL, type FilaUsuario } from "./editar-usuario";
 
 export default function UsuariosPage() {
   const sesion = useSesion();
@@ -40,6 +19,7 @@ export default function UsuariosPage() {
   const [errores, setErrores] = useState<Record<string, string | undefined>>({});
   const [creado, setCreado] = useState<UsuarioCreado>();
   const [cargando, setCargando] = useState(false);
+  const [editando, setEditando] = useState<string>();
 
   const roles: Rol[] =
     sesion.rol === "ADMIN"
@@ -96,20 +76,12 @@ export default function UsuariosPage() {
           />
           <Campo label="Apellido materno" name="apellidoMaterno" />
           <Campo label="Correo (opcional)" name="email" type="email" error={errores.email} />
-          <label className="flex flex-col gap-1.5 text-sm font-medium">
-            Rol
-            <select
-              name="rol"
-              defaultValue="STAFF"
-              className="rounded-lg border border-usm-azul/20 bg-white px-3 py-2.5 text-base font-normal dark:border-white/15 dark:bg-white/5"
-            >
-              {roles.map((r) => (
-                <option key={r} value={r}>
-                  {NOMBRE_ROL[r]}
-                </option>
-              ))}
-            </select>
-          </label>
+          <Selector
+            label="Rol"
+            name="rol"
+            defaultValue="STAFF"
+            opciones={Object.fromEntries(roles.map((r) => [r, NOMBRE_ROL[r]]))}
+          />
           {errores.general && <Alerta>{errores.general}</Alerta>}
           {creado && (
             <Alerta tipo="exito">
@@ -130,23 +102,54 @@ export default function UsuariosPage() {
         <h2 className="text-2xl font-semibold">Usuarios ({usuarios.length})</h2>
         <ul className="divide-y divide-usm-azul/10 rounded-xl border border-usm-azul/10 dark:divide-white/10 dark:border-white/10">
           {usuarios.map((u) => (
-            <li key={u.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
-              <div>
-                <p className="font-medium">
-                  {u.nombres} {u.apellidoPaterno} {u.apellidoMaterno}
-                </p>
-                <p className="text-sm text-foreground/60">
-                  {u.username} · {formatearRut({ cuerpo: u.rut, dv: u.dv })}
-                </p>
+            <li key={u.id} className={`px-4 py-3 ${u.activo ? "" : "opacity-60"}`}>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <p className="font-medium">
+                    {u.nombres} {u.apellidoPaterno} {u.apellidoMaterno}
+                  </p>
+                  <p className="text-sm text-foreground/60">
+                    {u.username} · {formatearRut({ cuerpo: u.rut, dv: u.dv })}
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 text-xs">
+                  {!u.activo && (
+                    <span className="rounded-full bg-red-100 px-2 py-1 text-red-800 dark:bg-red-950 dark:text-red-200">
+                      Desactivada
+                    </span>
+                  )}
+                  {u.debeCambiarPassword && (
+                    <span className="rounded-full bg-usm-amarillo/20 px-2 py-1">Clave temporal</span>
+                  )}
+                  {u.estado !== "ACTIVO" && (
+                    <span className="rounded-full bg-foreground/10 px-2 py-1">
+                      {NOMBRE_ESTADO[u.estado]}
+                    </span>
+                  )}
+                  <span className="rounded-full bg-usm-celeste px-2 py-1 text-usm-azul">
+                    {NOMBRE_ROL[u.rol]}
+                  </span>
+                  {roles.includes(u.rol) && editando !== u.id && (
+                    <button
+                      type="button"
+                      onClick={() => setEditando(u.id)}
+                      className="rounded-lg px-2 py-1 text-sm font-semibold text-usm-azul hover:bg-usm-celeste dark:text-usm-celeste dark:hover:bg-white/10"
+                    >
+                      Editar
+                    </button>
+                  )}
+                </div>
               </div>
-              <div className="flex gap-2 text-xs">
-                {u.debeCambiarPassword && (
-                  <span className="rounded-full bg-usm-amarillo/20 px-2 py-1">Clave temporal</span>
-                )}
-                <span className="rounded-full bg-usm-celeste px-2 py-1 text-usm-azul">
-                  {NOMBRE_ROL[u.rol]}
-                </span>
-              </div>
+              {editando === u.id && (
+                <EditarUsuario
+                  key={u.id}
+                  usuario={u}
+                  roles={roles}
+                  esUnoMismo={u.id === sesion.id}
+                  onGuardado={cargar}
+                  onCerrar={() => setEditando(undefined)}
+                />
+              )}
             </li>
           ))}
         </ul>

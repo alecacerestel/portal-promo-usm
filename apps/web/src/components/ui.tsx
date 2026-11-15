@@ -1,4 +1,9 @@
-import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from "react";
+import type {
+  ButtonHTMLAttributes,
+  InputHTMLAttributes,
+  ReactNode,
+  SelectHTMLAttributes,
+} from "react";
 
 export function Campo({
   label,
@@ -13,6 +18,28 @@ export function Campo({
         className="rounded-lg border border-usm-azul/20 bg-white px-3 py-2.5 text-base font-normal text-foreground outline-none transition focus:border-usm-azul-medio focus:ring-2 focus:ring-usm-azul-medio/30 dark:border-white/15 dark:bg-white/5"
       />
       {error && <span className="text-xs font-normal text-red-600">{error}</span>}
+    </label>
+  );
+}
+
+export function Selector({
+  label,
+  opciones,
+  ...props
+}: SelectHTMLAttributes<HTMLSelectElement> & { label: string; opciones: Record<string, string> }) {
+  return (
+    <label className="flex flex-col gap-1.5 text-sm font-medium">
+      {label}
+      <select
+        {...props}
+        className="rounded-lg border border-usm-azul/20 bg-white px-3 py-2.5 text-base font-normal dark:border-white/15 dark:bg-white/5"
+      >
+        {Object.entries(opciones).map(([valor, texto]) => (
+          <option key={valor} value={valor}>
+            {texto}
+          </option>
+        ))}
+      </select>
     </label>
   );
 }

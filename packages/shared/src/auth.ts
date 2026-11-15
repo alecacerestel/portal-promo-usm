@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ROLES } from './roles.js';
+import { ESTADOS_STAFF, ROLES } from './roles.js';
 import { parsearRut } from './rut.js';
 
 export const PASSWORD_MIN = 8;
@@ -34,6 +34,29 @@ export const crearUsuarioSchema = z.object({
   rol: z.enum(ROLES).default('STAFF'),
 });
 export type CrearUsuarioInput = z.input<typeof crearUsuarioSchema>;
+
+/** Cambios a un usuario existente: solo se envían los campos que cambian. */
+export const editarUsuarioSchema = z
+  .object({
+    nombres: z.string().trim().min(1, 'Requerido'),
+    apellidoPaterno: z.string().trim().min(1, 'Requerido'),
+    /** null o "" lo borra */
+    apellidoMaterno: z.string().trim().nullable(),
+    /** null o "" lo borra */
+    email: z.union([z.email('Correo inválido'), z.literal(''), z.null()]),
+    rol: z.enum(ROLES),
+    estado: z.enum(ESTADOS_STAFF),
+    activo: z.boolean(),
+  })
+  .partial()
+  .refine((d) => Object.keys(d).length > 0, 'No hay cambios');
+export type EditarUsuarioInput = z.input<typeof editarUsuarioSchema>;
+
+/** Respuesta al resetear la clave de alguien: vuelve a la temporal. */
+export interface ClaveReseteada {
+  username: string;
+  claveTemporal: string;
+}
 
 /** Datos de la sesión que la API entrega al frontend. */
 export interface UsuarioSesion {

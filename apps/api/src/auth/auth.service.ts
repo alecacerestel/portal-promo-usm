@@ -40,8 +40,15 @@ export class AuthService {
       where: rut ? { rut: rut.cuerpo } : { username: usuario.toLowerCase() },
     });
 
-    const valido = await verificarPassword(password, encontrado?.passwordHash ?? (await HASH_FALSO));
+    const valido = await verificarPassword(
+      password,
+      encontrado?.passwordHash ?? (await HASH_FALSO),
+    );
     if (!encontrado || !valido) throw new UnauthorizedException('Usuario o contraseña incorrectos');
+    // Solo se informa después de validar la clave, para no revelar qué cuentas existen
+    if (!encontrado.activo) {
+      throw new UnauthorizedException('Tu cuenta está desactivada. Habla con tu coordinador/a');
+    }
 
     const token = await this.jwt.signAsync({ sub: encontrado.id });
     return { usuario: aSesion(encontrado), token };
