@@ -1,0 +1,8 @@
+# Código generado (Prisma lo regenera en cada `prisma generate`)
+apps/api/src/generated/
+
+# Lo mantiene pnpm
+pnpm-lock.yaml
+
+# Migraciones ya aplicadas: no se deben modificar
+apps/api/prisma/migrations/

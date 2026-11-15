@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { z } from "zod";
-import { useState, type FormEvent } from "react";
-import { cambiarPasswordSchema, PASSWORD_MIN, type UsuarioSesion } from "@portal/shared";
-import { Alerta, Boton, Campo } from "@/components/ui";
-import { api } from "@/lib/api";
-import { useSesion } from "../sesion";
+import { useRouter } from 'next/navigation';
+import { z } from 'zod';
+import { useState, type FormEvent } from 'react';
+import { cambiarPasswordSchema, PASSWORD_MIN, type UsuarioSesion } from '@portal/shared';
+import { Alerta, Boton, Campo } from '@/components/ui';
+import { api } from '@/lib/api';
+import { useSesion } from '../sesion';
 
 export default function CambiarPasswordPage() {
   const usuario = useSesion();
@@ -17,10 +17,10 @@ export default function CambiarPasswordPage() {
   async function guardar(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const datos = { actual: form.get("actual"), nueva: form.get("nueva") };
+    const datos = { actual: form.get('actual'), nueva: form.get('nueva') };
 
-    if (datos.nueva !== form.get("confirmar")) {
-      return setErrores({ confirmar: "Las contraseñas no coinciden" });
+    if (datos.nueva !== form.get('confirmar')) {
+      return setErrores({ confirmar: 'Las contraseñas no coinciden' });
     }
     const validacion = cambiarPasswordSchema.safeParse(datos);
     if (!validacion.success) {
@@ -31,12 +31,12 @@ export default function CambiarPasswordPage() {
     setCargando(true);
     setErrores({});
     try {
-      await api<UsuarioSesion>("/auth/cambiar-password", { json: validacion.data });
+      await api<UsuarioSesion>('/auth/cambiar-password', { json: validacion.data });
       // refresh() vuelve a leer la sesión en el servidor (ya sin la clave temporal)
-      router.replace("/inicio");
+      router.replace('/inicio');
       router.refresh();
     } catch (err) {
-      setErrores({ general: err instanceof Error ? err.message : "No se pudo cambiar" });
+      setErrores({ general: err instanceof Error ? err.message : 'No se pudo cambiar' });
       setCargando(false);
     }
   }

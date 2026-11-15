@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { api } from "@/lib/api";
-import { useSesion } from "./sesion";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { api } from '@/lib/api';
+import { useSesion } from './sesion';
 
 export function Encabezado() {
   const usuario = useSesion();
   const router = useRouter();
-  const puedeAdministrar = usuario.rol === "ADMIN" || usuario.rol === "COORDINADOR";
+  const puedeAdministrar = usuario.rol === 'ADMIN' || usuario.rol === 'COORDINADOR';
 
   async function salir() {
-    await api("/auth/logout", { method: "POST" });
-    router.replace("/login");
+    await api('/auth/logout', { method: 'POST' });
+    router.replace('/login');
     router.refresh();
   }
 

@@ -1,17 +1,12 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useState, type FormEvent } from "react";
-import { z } from "zod";
-import {
-  crearUsuarioSchema,
-  formatearRut,
-  type Rol,
-  type UsuarioCreado,
-} from "@portal/shared";
-import { Alerta, Boton, Campo, Selector } from "@/components/ui";
-import { api } from "@/lib/api";
-import { useSesion } from "../../sesion";
-import { EditarUsuario, NOMBRE_ESTADO, NOMBRE_ROL, type FilaUsuario } from "./editar-usuario";
+import { useCallback, useEffect, useState, type FormEvent } from 'react';
+import { z } from 'zod';
+import { crearUsuarioSchema, formatearRut, type Rol, type UsuarioCreado } from '@portal/shared';
+import { Alerta, Boton, Campo, Selector } from '@/components/ui';
+import { api } from '@/lib/api';
+import { useSesion } from '../../sesion';
+import { EditarUsuario, NOMBRE_ESTADO, NOMBRE_ROL, type FilaUsuario } from './editar-usuario';
 
 export default function UsuariosPage() {
   const sesion = useSesion();
@@ -22,12 +17,14 @@ export default function UsuariosPage() {
   const [editando, setEditando] = useState<string>();
 
   const roles: Rol[] =
-    sesion.rol === "ADMIN"
-      ? ["STAFF", "APOYO_EVENTO", "COORDINADOR", "ADMIN", "POSTULANTE"]
-      : ["STAFF", "APOYO_EVENTO", "POSTULANTE"];
+    sesion.rol === 'ADMIN'
+      ? ['STAFF', 'APOYO_EVENTO', 'COORDINADOR', 'ADMIN', 'POSTULANTE']
+      : ['STAFF', 'APOYO_EVENTO', 'POSTULANTE'];
 
   const cargar = useCallback(() => {
-    api<FilaUsuario[]>("/usuarios").then(setUsuarios).catch(() => {});
+    api<FilaUsuario[]>('/usuarios')
+      .then(setUsuarios)
+      .catch(() => {});
   }, []);
   useEffect(cargar, [cargar]);
 
@@ -51,11 +48,11 @@ export default function UsuariosPage() {
     setErrores({});
     setCreado(undefined);
     try {
-      setCreado(await api<UsuarioCreado>("/usuarios", { json: validacion.data }));
+      setCreado(await api<UsuarioCreado>('/usuarios', { json: validacion.data }));
       formulario.reset();
       cargar();
     } catch (err) {
-      setErrores({ general: err instanceof Error ? err.message : "No se pudo crear" });
+      setErrores({ general: err instanceof Error ? err.message : 'No se pudo crear' });
     } finally {
       setCargando(false);
     }
@@ -102,7 +99,7 @@ export default function UsuariosPage() {
         <h2 className="text-2xl font-semibold">Usuarios ({usuarios.length})</h2>
         <ul className="divide-y divide-usm-azul/10 rounded-xl border border-usm-azul/10 dark:divide-white/10 dark:border-white/10">
           {usuarios.map((u) => (
-            <li key={u.id} className={`px-4 py-3 ${u.activo ? "" : "opacity-60"}`}>
+            <li key={u.id} className={`px-4 py-3 ${u.activo ? '' : 'opacity-60'}`}>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <p className="font-medium">
@@ -119,9 +116,11 @@ export default function UsuariosPage() {
                     </span>
                   )}
                   {u.debeCambiarPassword && (
-                    <span className="rounded-full bg-usm-amarillo/20 px-2 py-1">Clave temporal</span>
+                    <span className="rounded-full bg-usm-amarillo/20 px-2 py-1">
+                      Clave temporal
+                    </span>
                   )}
-                  {u.estado !== "ACTIVO" && (
+                  {u.estado !== 'ACTIVO' && (
                     <span className="rounded-full bg-foreground/10 px-2 py-1">
                       {NOMBRE_ESTADO[u.estado]}
                     </span>

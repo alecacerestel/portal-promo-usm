@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState, type FormEvent } from "react";
-import { z } from "zod";
+import { useState, type FormEvent } from 'react';
+import { z } from 'zod';
 import {
   editarUsuarioSchema,
   type ClaveReseteada,
   type EstadoStaff,
   type Rol,
-} from "@portal/shared";
-import { Alerta, Boton, Campo, Selector } from "@/components/ui";
-import { api } from "@/lib/api";
+} from '@portal/shared';
+import { Alerta, Boton, Campo, Selector } from '@/components/ui';
+import { api } from '@/lib/api';
 
 export interface FilaUsuario {
   id: string;
@@ -27,18 +27,18 @@ export interface FilaUsuario {
 }
 
 export const NOMBRE_ROL: Record<Rol, string> = {
-  ADMIN: "Admin",
-  COORDINADOR: "Coordinador/a",
-  APOYO_EVENTO: "Apoyo de evento",
-  STAFF: "Staff",
-  POSTULANTE: "Postulante",
+  ADMIN: 'Admin',
+  COORDINADOR: 'Coordinador/a',
+  APOYO_EVENTO: 'Apoyo de evento',
+  STAFF: 'Staff',
+  POSTULANTE: 'Postulante',
 };
 
 export const NOMBRE_ESTADO: Record<EstadoStaff, string> = {
-  ACTIVO: "Activo",
-  CONGELADO: "Congelado",
-  INTERCAMBIO: "En intercambio",
-  GRADUADO: "Graduado",
+  ACTIVO: 'Activo',
+  CONGELADO: 'Congelado',
+  INTERCAMBIO: 'En intercambio',
+  GRADUADO: 'Graduado',
 };
 
 /** Formulario para editar a un usuario, desactivarlo o resetear su clave. */
@@ -74,7 +74,7 @@ export function EditarUsuario({
       estado: form.estado,
       // Los campos deshabilitados no viajan en el FormData: así no se envían al editarse a uno mismo
       ...(form.rol && { rol: form.rol }),
-      ...(!esUnoMismo && { activo: form.activo === "on" }),
+      ...(!esUnoMismo && { activo: form.activo === 'on' }),
     };
 
     const validacion = editarUsuarioSchema.safeParse(datos);
@@ -86,27 +86,31 @@ export function EditarUsuario({
     setGuardando(true);
     setErrores({});
     try {
-      await api(`/usuarios/${usuario.id}`, { method: "PATCH", json: validacion.data });
+      await api(`/usuarios/${usuario.id}`, { method: 'PATCH', json: validacion.data });
       onGuardado();
       onCerrar();
     } catch (err) {
-      setErrores({ general: err instanceof Error ? err.message : "No se pudo guardar" });
+      setErrores({ general: err instanceof Error ? err.message : 'No se pudo guardar' });
     } finally {
       setGuardando(false);
     }
   }
 
   async function resetearClave() {
-    if (!confirm(`¿Resetear la clave de ${usuario.username}? Su clave actual dejará de funcionar.`)) {
+    if (
+      !confirm(`¿Resetear la clave de ${usuario.username}? Su clave actual dejará de funcionar.`)
+    ) {
       return;
     }
     setReseteando(true);
     setErrores({});
     try {
-      setClave(await api<ClaveReseteada>(`/usuarios/${usuario.id}/resetear-clave`, { method: "POST" }));
+      setClave(
+        await api<ClaveReseteada>(`/usuarios/${usuario.id}/resetear-clave`, { method: 'POST' }),
+      );
       onGuardado();
     } catch (err) {
-      setErrores({ general: err instanceof Error ? err.message : "No se pudo resetear" });
+      setErrores({ general: err instanceof Error ? err.message : 'No se pudo resetear' });
     } finally {
       setReseteando(false);
     }
@@ -115,7 +119,12 @@ export function EditarUsuario({
   return (
     <form onSubmit={guardar} className="flex flex-col gap-3 pt-3" noValidate>
       <div className="grid gap-3 sm:grid-cols-2">
-        <Campo label="Nombres" name="nombres" defaultValue={usuario.nombres} error={errores.nombres} />
+        <Campo
+          label="Nombres"
+          name="nombres"
+          defaultValue={usuario.nombres}
+          error={errores.nombres}
+        />
         <Campo
           label="Apellido paterno"
           name="apellidoPaterno"
@@ -125,13 +134,13 @@ export function EditarUsuario({
         <Campo
           label="Apellido materno"
           name="apellidoMaterno"
-          defaultValue={usuario.apellidoMaterno ?? ""}
+          defaultValue={usuario.apellidoMaterno ?? ''}
         />
         <Campo
           label="Correo"
           name="email"
           type="email"
-          defaultValue={usuario.email ?? ""}
+          defaultValue={usuario.email ?? ''}
           error={errores.email}
         />
         <Selector

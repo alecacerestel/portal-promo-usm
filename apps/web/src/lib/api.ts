@@ -13,15 +13,15 @@ export async function api<T>(ruta: string, init?: RequestInit & { json?: unknown
   const { json, ...resto } = init ?? {};
   const res = await fetch(`/api${ruta}`, {
     ...resto,
-    method: resto.method ?? (json ? "POST" : "GET"),
-    headers: json ? { "content-type": "application/json", ...resto.headers } : resto.headers,
+    method: resto.method ?? (json ? 'POST' : 'GET'),
+    headers: json ? { 'content-type': 'application/json', ...resto.headers } : resto.headers,
     body: json ? JSON.stringify(json) : resto.body,
   });
 
   if (res.status === 204) return undefined as T;
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    throw new ApiError(res.status, data.message ?? "Error inesperado", data.errores);
+    throw new ApiError(res.status, data.message ?? 'Error inesperado', data.errores);
   }
   return data as T;
 }

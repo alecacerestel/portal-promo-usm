@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useState, type FormEvent } from "react";
-import type { UsuarioSesion } from "@portal/shared";
-import { Alerta, Boton, Campo } from "@/components/ui";
-import { api, ApiError } from "@/lib/api";
+import { useRouter } from 'next/navigation';
+import { useState, type FormEvent } from 'react';
+import type { UsuarioSesion } from '@portal/shared';
+import { Alerta, Boton, Campo } from '@/components/ui';
+import { api, ApiError } from '@/lib/api';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -17,17 +17,17 @@ export default function LoginPage() {
     setCargando(true);
     setError(undefined);
     try {
-      const usuario = await api<UsuarioSesion>("/auth/login", {
-        json: { usuario: form.get("usuario"), password: form.get("password") },
+      const usuario = await api<UsuarioSesion>('/auth/login', {
+        json: { usuario: form.get('usuario'), password: form.get('password') },
       });
-      router.replace(usuario.debeCambiarPassword ? "/cambiar-password" : "/inicio");
+      router.replace(usuario.debeCambiarPassword ? '/cambiar-password' : '/inicio');
     } catch (err) {
       setError(
         err instanceof ApiError && err.status === 429
-          ? "Demasiados intentos. Espera un minuto."
+          ? 'Demasiados intentos. Espera un minuto.'
           : err instanceof Error
             ? err.message
-            : "No se pudo iniciar sesión",
+            : 'No se pudo iniciar sesión',
       );
       setCargando(false);
     }

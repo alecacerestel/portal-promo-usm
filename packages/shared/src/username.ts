@@ -1,10 +1,6 @@
 /** "José Ignacio" → "jose", "De la Fuente" → "delafuente", "Muñoz" → "munoz" */
 function normalizar(texto: string, soloPrimeraPalabra: boolean): string {
-  const base = texto
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .trim();
+  const base = texto.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
   const palabras = base.split(/\s+/);
   return (soloPrimeraPalabra ? palabras[0] : palabras.join('')).replace(/[^a-z]/g, '');
 }

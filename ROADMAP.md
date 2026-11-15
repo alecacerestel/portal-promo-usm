@@ -10,6 +10,7 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 ## Fase 0 — Fundaciones del proyecto
 
 ### Repo y buenas prácticas
+
 - [ ] Repo público en GitHub, licencia (MIT), README con aviso "proyecto no oficial"
 - [ ] Ramas: `main` (estable) · `develop` (integración) · `feature/*` · `fix/*` · `chore/*`
 - [ ] Protección de ramas: PR obligatorio a `main`/`develop`, CI en verde para mergear
@@ -20,6 +21,7 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 - [~] Datos de prueba ficticios (seed con nombres/RUT inventados) — por ahora solo el admin
 
 ### Monorepo
+
 - [x] pnpm workspaces + Turborepo
 - [~] `apps/web` — Next.js + TypeScript + Tailwind + shadcn/ui (falta shadcn/ui)
 - [x] `apps/api` — NestJS + Prisma + PostgreSQL
@@ -29,11 +31,13 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 - [~] Vitest (unit) + Playwright (e2e) (falta Playwright)
 
 ### Docker
+
 - [ ] `docker-compose.yml`: postgres, api, web, minio (archivos), mailpit (correos de prueba)
 - [ ] Un solo comando para levantar todo: `docker compose up`
 - [ ] Hot reload en desarrollo
 
 ### CI (GitHub Actions)
+
 - [x] Lint + typecheck + tests + build en cada PR
 - [ ] Build de imágenes Docker en `main`
 
@@ -42,6 +46,7 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 ## Fase 1 — Paridad: replicar TODO lo que existe hoy
 
 ### Autenticación y roles
+
 - [x] Login con usuario `nombre.apellido` o RUT + contraseña
 - [x] Admin/coordinador crea usuarios a partir de RUT + nombre (usuario generado automático)
 - [x] Nombres repetidos: `juan.perez` → `juan.perez.g` → `juan.perez2`…
@@ -62,9 +67,11 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 - [x] Estado del staff: activo · congelado · en intercambio · graduado
 
 ### Notificaciones (inicio)
+
 - [ ] Listado de notificaciones del usuario ❓ (contenido real no visible con cuenta postulante)
 
 ### Mis Datos
+
 - [ ] **Mi perfil**: nombres, apellidos, RUT+DV, sexo, fecha de nacimiento, email, teléfono, celular,
       región/comuna, colegio de origen, sede, carrera, año de ingreso, dirección académica,
       banco, tipo y número de cuenta, foto, video, motivación
@@ -72,6 +79,7 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 - [ ] **Mis ingresos**: hojas traspasadas × monto por hoja, actividades sin pago, total
 
 ### Calendarización
+
 - [ ] Vista mensual de **eventos** con filtros (mes/año, región, comuna, sede, tipo, nivel, estado, staff)
 - [ ] Vista mensual de **actividades**
 - [ ] Vista semanal ❓
@@ -79,48 +87,57 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 - [ ] Asignación de staff a eventos ❓
 
 ### Material
+
 - [ ] **Foro** (categorías → temas → mensajes): ej. "Información Transversal", "Historia USM", "Becas y Premios"
 - [ ] **Documentos**: listado con filtro por categoría, subir documento, CRUD de categorías
 - [ ] **Noticias**: listado, crear/editar, CRUD de secciones ❓
 
 ### Inventario ❓
+
 - [ ] Estado del inventario
 - [ ] Préstamos (quién tiene qué, fecha de devolución)
 - [ ] CRUD categorías / subcategorías / ítems
 
 ### Staff (admin/coordinador) ❓
+
 - [ ] Listado de staff
 - [ ] Cuadro de disponibilidad de todo el staff
 - [ ] Planilla de pago
 - [ ] Histórico de pagos
 
 ### Eventos ❓
+
 - [ ] **Ensayo PSU/PAES**: crear evento, listado de eventos, listado de facsímiles
 - [ ] **Talleres**: crear, listado, registrar ingreso, inscribir alumno, acreditación
 - [ ] **Seminarios**: crear, listado
 
 ### Contacto ❓
+
 - [ ] Crear contacto
 - [ ] Registro de llamado
 - [ ] Listado de preguntas por proceso (año)
 
 ### Puertas Abiertas
+
 - [ ] Registrar asistentes: sede → portería (select anidado), RUT+DV o **código de barras**
 - [ ] Asistentes por ruta
 - [ ] Hora real de la ruta
 - [ ] Estadísticas por sede: Casa Central (Valpo), Vitacura, San Joaquín, Concepción, Viña
 
 ### Call Centers ❓
+
 - [ ] Campañas: Fidelización, Postulación, Matrícula, Matrícula Género, Matrícula BEA
 - [ ] Por campaña: resumen de llamadas por staff y resumen de interés
 - [ ] Locaciones: listado y creación
 
 ### Registrados ❓
+
 - [ ] Listado de registrados (estudiantes interesados)
 - [ ] Puntajes PSU/PAES
 - [ ] Validar registrados
 
 ### Presupuestos
+
 - [ ] Ingresar gastos
 - [ ] Saldo de cuentas presupuestarias por proceso (año)
 - [ ] Listado de gastos
@@ -128,6 +145,7 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 - [ ] Proveedores
 
 ### Transversal
+
 - [ ] Filtro por **proceso** (año de admisión) en todos los módulos
 - [ ] Exportar listados a Excel/CSV
 - [ ] Bitácora de auditoría (quién cambió qué)
@@ -137,6 +155,7 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 ## Fase 2 — Mejoras
 
 ### Rendiciones automáticas (reemplazo del Excel)
+
 - [ ] Desde el teléfono: foto de la boleta → monto, fecha, proveedor, evento asociado (ej. "Feria Machalí")
 - [ ] Lectura automática de la boleta (OCR) para prellenar los campos
 - [ ] Estados: borrador → enviada → aprobada/rechazada → reembolsada
@@ -144,22 +163,26 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 - [ ] Coordinador revisa y aprueba desde el portal
 
 ### Móvil y sin conexión
+
 - [ ] PWA instalable (ícono en el celular)
 - [ ] Diseño mobile-first en todas las vistas
 - [ ] Modo offline para registrar asistentes en Puertas Abiertas/ferias → sincroniza al volver la señal
 - [ ] Escaneo de códigos de barra/QR con la cámara
 
 ### Inicio personalizado ("Mi semana")
+
 - [ ] Actividades de la semana del usuario
 - [ ] 🎂 Cumpleaños de la semana
 - [ ] Cuenta regresiva: "faltan X días para Día Cero / Puertas Abiertas / PAES"
 - [ ] Personalización: foto, tema claro/oscuro, preferencias de notificación
 
 ### Guía del Promo
+
 - [ ] Material por tipo de actividad: charla, feria, viaje, Puertas Abiertas, Día Cero
 - [ ] Checklists ("qué llevar a una feria"), links, presentaciones
 
 ### Muro de Leyendas ❤️
+
 - [ ] Al pasar a estado **graduado**, el promo aparece en el muro
 - [ ] El propio promo controla sus datos: foto, generación, año de ingreso/egreso, LinkedIn,
       contacto (cada dato con opción de mostrar/ocultar)
@@ -167,11 +190,13 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 - [ ] Reacciones
 
 ### CRM estilo HubSpot
+
 - [ ] Ficha única del estudiante interesado con timeline (eventos donde asistió, llamados, interés)
 - [ ] Pipeline: interesado → registrado → postulante → matriculado
 - [ ] Unificar Registrados + Call Centers + Contacto + Puertas Abiertas sobre ese modelo
 
 ### Diseño
+
 - [ ] Tokens de color sacados de usm.cl / manual de marca USM
 - [ ] Transiciones entre páginas (Framer Motion / View Transitions) al estilo usm.cl
 - [ ] Accesibilidad (contraste, teclado, lectores de pantalla)
@@ -179,12 +204,14 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 ---
 
 ## Fase 3 — Más adelante
+
 - [ ] Reclutamiento: postulación a promo → entrevista → aceptación (flujo dentro del portal)
 - [ ] Migración de datos desde el sistema actual (si se consigue acceso admin)
 - [ ] Notificaciones por correo / push
 - [ ] Login con cuenta institucional @usm.cl (si la U lo permite)
 
 ## Deployment (por definir)
+
 - [ ] Averiguar con la DTI USM si hay servidores/VM disponibles para el proyecto
 - [ ] Alternativa externa (Railway, Fly.io, VPS) mientras tanto
 - [ ] Dominio, HTTPS, respaldos automáticos de la BD
@@ -193,6 +220,7 @@ Leyenda: `[ ]` pendiente · `[~]` en progreso · `[x]` listo · ❓ falta info (
 ---
 
 ## Pendientes de información
+
 - [ ] Capturas o acceso admin de las secciones marcadas ❓
 - [ ] Formato del Excel de rendición actual
 - [ ] Manual de marca / colores oficiales USM

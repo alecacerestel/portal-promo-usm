@@ -11,13 +11,13 @@ El plan completo está en [ROADMAP.md](ROADMAP.md).
 
 ## Stack
 
-| Parte         | Tecnología                                          |
-| ------------- | --------------------------------------------------- |
-| Monorepo      | pnpm workspaces + Turborepo                         |
-| Frontend      | Next.js, React, TypeScript, Tailwind CSS            |
-| Backend       | NestJS, Prisma, PostgreSQL                          |
-| Compartido    | `packages/shared` (tipos y constantes)              |
-| Infra         | Docker Compose, GitHub Actions                      |
+| Parte      | Tecnología                               |
+| ---------- | ---------------------------------------- |
+| Monorepo   | pnpm workspaces + Turborepo              |
+| Frontend   | Next.js, React, TypeScript, Tailwind CSS |
+| Backend    | NestJS, Prisma, PostgreSQL               |
+| Compartido | `packages/shared` (tipos y constantes)   |
+| Infra      | Docker Compose, GitHub Actions           |
 
 ```
 apps/
@@ -63,14 +63,14 @@ docker compose --profile app up --build
 
 ## Comandos
 
-| Comando                                 | Qué hace                                  |
-| --------------------------------------- | ----------------------------------------- |
-| `pnpm dev`                              | Levanta web y api en modo desarrollo      |
-| `pnpm build`                            | Compila todo                              |
-| `pnpm lint` / `pnpm typecheck`          | Revisa estilo y tipos                     |
-| `pnpm test`                             | Corre los tests                           |
-| `pnpm --filter @portal/api db:migrate`  | Crea/aplica migraciones de la BD          |
-| `pnpm --filter @portal/api db:studio`   | Abre Prisma Studio para ver la BD         |
+| Comando                                | Qué hace                             |
+| -------------------------------------- | ------------------------------------ |
+| `pnpm dev`                             | Levanta web y api en modo desarrollo |
+| `pnpm build`                           | Compila todo                         |
+| `pnpm lint` / `pnpm typecheck`         | Revisa estilo y tipos                |
+| `pnpm test`                            | Corre los tests                      |
+| `pnpm --filter @portal/api db:migrate` | Crea/aplica migraciones de la BD     |
+| `pnpm --filter @portal/api db:studio`  | Abre Prisma Studio para ver la BD    |
 
 ## Cómo contribuir
 

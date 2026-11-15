@@ -3,7 +3,7 @@ import type {
   InputHTMLAttributes,
   ReactNode,
   SelectHTMLAttributes,
-} from "react";
+} from 'react';
 
 export function Campo({
   label,
@@ -47,31 +47,37 @@ export function Selector({
 export function Boton({
   cargando,
   children,
-  variante = "primario",
+  variante = 'primario',
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & {
   cargando?: boolean;
-  variante?: "primario" | "secundario";
+  variante?: 'primario' | 'secundario';
 }) {
   const estilos =
-    variante === "primario"
-      ? "bg-usm-azul text-white hover:bg-usm-azul-medio"
-      : "border border-usm-azul/20 text-usm-azul hover:bg-usm-celeste dark:border-white/20 dark:text-usm-celeste dark:hover:bg-white/10";
+    variante === 'primario'
+      ? 'bg-usm-azul text-white hover:bg-usm-azul-medio'
+      : 'border border-usm-azul/20 text-usm-azul hover:bg-usm-celeste dark:border-white/20 dark:text-usm-celeste dark:hover:bg-white/10';
   return (
     <button
       {...props}
       disabled={cargando || props.disabled}
-      className={`rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:opacity-60 ${estilos} ${props.className ?? ""}`}
+      className={`rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:opacity-60 ${estilos} ${props.className ?? ''}`}
     >
-      {cargando ? "Cargando…" : children}
+      {cargando ? 'Cargando…' : children}
     </button>
   );
 }
 
-export function Alerta({ tipo = "error", children }: { tipo?: "error" | "exito"; children: ReactNode }) {
+export function Alerta({
+  tipo = 'error',
+  children,
+}: {
+  tipo?: 'error' | 'exito';
+  children: ReactNode;
+}) {
   const estilos =
-    tipo === "error"
-      ? "border-red-200 bg-red-50 text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-200"
-      : "border-emerald-200 bg-emerald-50 text-emerald-900 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-100";
+    tipo === 'error'
+      ? 'border-red-200 bg-red-50 text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-200'
+      : 'border-emerald-200 bg-emerald-50 text-emerald-900 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-100';
   return <div className={`rounded-lg border px-3 py-2.5 text-sm ${estilos}`}>{children}</div>;
 }
